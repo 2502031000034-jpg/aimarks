@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Marks Predictor</title>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f2f4f7;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    .container {
+      background: white;
+      padding: 30px;
+      width: 350px;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+      text-align: center;
+    }
+
+    input {
+      width: 90%;
+      padding: 10px;
+      margin: 8px 0;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 16px;
+    }
+
+    button {
+      width: 95%;
+      padding: 12px;
+      margin-top: 15px;
+      background: #007bff;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #0056b3;
+    }
+
+    #result {
+      margin-top: 20px;
+      font-size: 20px;
+      font-weight: bold;
+      color: #222;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="container">
+    <h2>Marks Predictor</h2>
+
+    <p>Enter your previous 3 exam marks:</p>
+
+    <input type="number" id="exam1" min="0" max="100" placeholder="Exam 1">
+    <input type="number" id="exam2" min="0" max="100" placeholder="Exam 2">
+    <input type="number" id="exam3" min="0" max="100" placeholder="Exam 3">
+
+    <button onclick="predictMarks()">Predict Marks</button>
+
+    <div id="result"></div>
+  </div>
+
+  <script>
+    function predictMarks() {
+      const exam1 = Number(document.getElementById("exam1").value);
+      const exam2 = Number(document.getElementById("exam2").value);
+      const exam3 = Number(document.getElementById("exam3").value);
+
+      if (
+        exam1 < 0 || exam1 > 100 ||
+        exam2 < 0 || exam2 > 100 ||
+        exam3 < 0 || exam3 > 100 ||
+        document.getElementById("exam1").value === "" ||
+        document.getElementById("exam2").value === "" ||
+        document.getElementById("exam3").value === ""
+      ) {
+        document.getElementById("result").innerHTML =
+          "Please enter valid marks between 0 and 100.";
+        return;
+      }
+
+      // Calculate average of previous 3 exams
+      const average = (exam1 + exam2 + exam3) / 3;
+
+      // Predicted marks
+      const prediction = Math.min(100, average);
+
+      document.getElementById("result").innerHTML =
+        `Predicted Marks: ${prediction.toFixed(2)} / 100`;
+    }
+  </script>
+
+</body>
+</html>
